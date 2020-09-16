@@ -1,4 +1,8 @@
 {
+  "ts-node": {
+    "files": true,
+    "ignore": ["(?=(?:^|/)node_modules/)(?!.*/functional-api/)"]
+  },
   "compilerOptions": {
     "module": "commonjs",
     "esModuleInterop": true,
@@ -11,7 +15,12 @@
     "noEmit": true,
     "pretty": true
   },
-  "files": ["./src/index.d.ts"],
-  "include": ["./src/**/*"],
+  "files": [
+    "./src/index.d.ts",
+    "./src/index.ts",
+    "./src/app.ts",
+    "./src/config.ts",
+    "./src/loader.ts"
+  ],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }
