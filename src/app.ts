@@ -31,8 +31,6 @@ app.use(async (ctx, next) => {
 
 app.listen(config.port);
 
-if (process.env.NODE_ENV !== 'production') {
-  console.log(`Serving: http://localhost:${config.port}/\n`);
-}
+console.log(`Serving: http://127.0.0.1:${config.port}/\n`);
 
 export default app;

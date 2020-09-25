@@ -14,16 +14,20 @@ if (!fs.existsSync(path)) tsconfig = path.join(cwd, 'tsconfig.json');
 program
   .version(version, '-v, --version')
   .description('Functional API Server')
-  .option('-p, --port <port>', 'server port number', '20209')
+  .option('-p, --port <port>', 'server port number')
   .option('-s, --src <directory>', 'functions source directory path', './')
-  .option('-c, --config <file>', 'extend config file path', 'functional-api.config.ts');
+  .option('-c, --config <file>', 'extend config file path', 'functional-api.config.ts')
+  .option('--prod, --production', 'serve in production environment');
 
 program.parse(process.argv);
 
 // envs
-process.env.FUNCTIONAL_API_PORT = program.port;
-process.env.FUNCTIONAL_API_SRC = program.src;
-process.env.FUNCTIONAL_API_CONFIG = program.config;
+process.env.FUNCTIONAL_API_PORT = program.port || '';
+process.env.FUNCTIONAL_API_SRC = program.src || '';
+process.env.FUNCTIONAL_API_CONFIG = program.config || '';
+process.env.NODE_ENV = program.production ? 'production' : 'development';
+
+console.log(`${process.env.NODE_ENV} environment`);
 
 let subprocess;
 if (process.env.NODE_ENV !== 'production') { // ts-node-dev
