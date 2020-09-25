@@ -19,7 +19,6 @@ program
   .option('-c, --config <file>', 'extend config file path', 'functional-api.config.ts');
 
 program.parse(process.argv);
-// if (program.help) process.exit(0);
 
 // envs
 process.env.FUNCTIONAL_API_PORT = program.port;
@@ -33,6 +32,7 @@ if (process.env.NODE_ENV !== 'production') { // ts-node-dev
     app,
   ], {
     env: npmRunPath.env({ cwd }),
+    stdio: 'inherit',
   });
 } else { // ts-node
   subprocess = execa('ts-node', [
@@ -40,8 +40,6 @@ if (process.env.NODE_ENV !== 'production') { // ts-node-dev
     app,
   ], {
     env: npmRunPath.env({ cwd }),
+    stdio: 'inherit',
   });
 }
-
-subprocess.stdout.pipe(process.stdout);
-subprocess.stderr.pipe(process.stderr);
