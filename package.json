@@ -1,6 +1,6 @@
 {
   "name": "functional-api",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Functional API server for node.js base on Koa and TypeScript",
   "license": "MIT",
   "repository": {},
@@ -14,7 +14,7 @@
     "@types/koa": "^2.11.4",
     "@types/koa-bodyparser": "^4.3.0",
     "@types/koa-logger": "^3.1.1",
-    "@types/node": "^14.10.2",
+    "@types/node": "^14.11.2",
     "commander": "^6.1.0",
     "execa": "^4.0.3",
     "koa": "^2.13.0",
@@ -22,7 +22,7 @@
     "koa-logger": "^3.2.1",
     "npm-run-path": "^4.0.1",
     "ts-node": "^9.0.0",
-    "ts-node-dev": "^1.0.0-pre.62",
-    "typescript": "^4.0.2"
+    "ts-node-dev": "^1.0.0-pre.63",
+    "typescript": "^4.0.3"
   }
 }
