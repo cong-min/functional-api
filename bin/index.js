@@ -15,8 +15,8 @@ program
   .version(version, '-v, --version')
   .description('Functional API Server')
   .option('-p, --port <port>', 'server port number')
-  .option('-s, --src <directory>', 'functions source directory path', './')
-  .option('-c, --config <file>', 'extend config file path', 'functional-api.config.ts')
+  .option('-s, --src <directory>', 'functions source directory path (default: ./)')
+  .option('-c, --config <file>', 'extend config file path (default: ./functional-api.config.ts)')
   .option('--prod, --production', 'serve in production environment');
 
 program.parse(process.argv);
