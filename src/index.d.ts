@@ -1,4 +1,6 @@
-import Koa from 'koa';
+import type Koa from 'koa';
+import type bodyParser from 'koa-bodyparser';
+import type logger from 'koa-logger';
 
 declare module FunctionalAPI {
   export type App = Koa;
@@ -10,7 +12,12 @@ declare module FunctionalAPI {
   export type Config = {
     port?: number | string,
     src?: string,
-    inject?: (app?: App) => void,
+    middlewares?: Koa.Middleware[],
+    context?: (ctx?: Context) => void,
+    application?: (app?: App) => void,
+    // built-in lib config
+    'koa-bodyparser'?: bodyParser.Options,
+    'koa-logger'?: Parameters<typeof logger>[0],
   };
 
   export type Function<Req extends Params = object, Res = any>

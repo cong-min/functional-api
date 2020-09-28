@@ -1,23 +1,35 @@
 import path from 'path';
+import fs from 'fs';
 
-const configPath = process.env.FUNCTIONAL_API_CONFIG || 'functional-api.config.ts';
+const isCustomConfig = !!process.env.FUNCTIONAL_API_CONFIG;
+const configFilename = process.env.FUNCTIONAL_API_CONFIG || 'functional-api.config.ts';
+const configPath = path.resolve(process.cwd(), configFilename);
+const isExists = fs.existsSync(configPath);
 
 let config: FunctionalAPI.Config = {};
 
-try {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  config = require(path.resolve(process.cwd(), configPath)).default || {};
-  console.log('Loaded config:', configPath);
-} catch (err) {
-  if (process.env.FUNCTIONAL_API_CONFIG !== 'functional-api.config.ts') { // custom no-default invalid file
+if (isCustomConfig && !isExists) {
+  console.error('Config not exists:', configPath);
+  process.exit(-1);
+}
+
+if (isExists) {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    config = require(configPath).default || {};
+    console.log('Loaded config:', configFilename);
+  } catch (err) {
     console.error(err);
+    process.exit(-1);
   }
 }
 
 config = {
   port: process.env.FUNCTIONAL_API_PORT || config.port || 20209,
   src: path.resolve(process.cwd(), process.env.FUNCTIONAL_API_SRC || config.src || './'),
-  inject: config.inject,
+  middlewares: config.middlewares || [],
+  context: config.context,
+  application: config.application,
 };
 
 export default config;
