@@ -7,7 +7,7 @@ declare module FunctionalAPI {
 
   export type Context = Koa.Context;
 
-  export type Params = object;
+  export type Params = object | string;
 
   export type Config = {
     port?: number | string,

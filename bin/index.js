@@ -14,7 +14,7 @@ if (!fs.existsSync(path)) tsconfig = path.join(cwd, 'tsconfig.json');
 program
   .version(version, '-v, --version')
   .description('Functional API Server')
-  .option('-p, --port <port>', 'server port number')
+  .option('-p, --port <port>', 'server port number (default: 20209)')
   .option('-s, --src <directory>', 'functions source directory path (default: ./)')
   .option('-c, --config <file>', 'extend config file path (default: ./functional-api.config.ts)')
   .option('--prod, --production', 'serve in production environment');
