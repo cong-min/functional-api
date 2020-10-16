@@ -5,6 +5,7 @@
 <p align="center">
   <a href="https://www.npmjs.com/package/functional-api"><img alt="npm" src="https://img.shields.io/npm/v/functional-api.svg?style=flat-square"></a>
   <a href="https://github.com/mcc108/functional-api"><img alt="minsize" src="https://img.shields.io/bundlephobia/min/functional-api?label=functional-api&style=flat-square"></a>
+  <a href="https://codecov.io/gh/mcc108/functional-api"><img alt="coverage" src="https://img.shields.io/codecov/c/github/mcc108/functional-api?style=flat-square"></a>
 </p>
 
 <p align="center">
