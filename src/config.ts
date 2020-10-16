@@ -1,8 +1,9 @@
 import path from 'path';
 import fs from 'fs';
+import FunctionalAPI from './index.d';
 
 const isCustomConfig = !!process.env.FUNCTIONAL_API_CONFIG;
-const configFilename = process.env.FUNCTIONAL_API_CONFIG || 'functional-api.config.ts';
+const configFilename = process.env.FUNCTIONAL_API_CONFIG || './functional-api.config.ts';
 const configPath = path.resolve(process.cwd(), configFilename);
 const isExists = fs.existsSync(configPath);
 
@@ -24,12 +25,16 @@ if (isExists) {
   }
 }
 
+const functionSrc = process.env.FUNCTIONAL_API_SRC || config.src || './';
+
 config = {
   port: process.env.FUNCTIONAL_API_PORT || config.port || 20209,
-  src: path.resolve(process.cwd(), process.env.FUNCTIONAL_API_SRC || config.src || './'),
+  src: path.resolve(process.cwd(), functionSrc),
   middlewares: config.middlewares || [],
   context: config.context,
   application: config.application,
 };
+
+console.log('Functions src:', functionSrc);
 
 export default config;

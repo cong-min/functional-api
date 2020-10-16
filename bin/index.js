@@ -9,7 +9,7 @@ const { version } = require('../package.json');
 const cwd = path.join(__dirname, '..');
 const app = path.join(cwd, 'src/app.ts');
 let tsconfig = path.join(process.cwd(), 'tsconfig.json');
-if (!fs.existsSync(path)) tsconfig = path.join(cwd, 'tsconfig.json');
+if (!fs.existsSync(tsconfig)) tsconfig = path.join(cwd, 'tsconfig.json');
 
 program
   .version(version, '-v, --version')

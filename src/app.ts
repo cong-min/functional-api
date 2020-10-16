@@ -1,6 +1,7 @@
 import Koa from 'koa';
 import logger from 'koa-logger';
 import bodyParser from 'koa-bodyparser';
+import stripAnsi from 'strip-ansi';
 import { getTargetFunction } from './loader';
 import config from './config';
 
@@ -20,7 +21,7 @@ app.use(bodyParser({
   enableTypes: ['json', 'form', 'text', 'xml'],
   onerror(err, ctx) {
     console.error(String(err), ctx.body);
-    ctx.throw(400, err.message);
+    ctx.throw(400, stripAnsi(err.message));
   },
   ...config['koa-bodyparser'],
 }));
@@ -39,7 +40,7 @@ app.use(async (ctx, next) => {
     ctx.response.body = await func(params, ctx);
   } catch (err) {
     console.error(String(err));
-    ctx.throw(400, err.message);
+    ctx.throw(400, stripAnsi(err.message));
   }
   await next();
 });
