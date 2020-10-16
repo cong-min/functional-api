@@ -14,12 +14,8 @@
 ## Features
 
 - API routing rules refer to functions, without configure routes, functions as a service.
-- Support TypeScript runtime, without manually compile, startup script is runing application directly.
+- Support TypeScript and JavaScript, without manually compile, startup script is runing application directly.
 - Packing application entry file for server startup, focus on business code.
-
-### TODO
-
-- [ ] Unit tests.
 
 ## Installation
 
