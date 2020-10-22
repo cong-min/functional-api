@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs';
-import FunctionalAPI from './index.d';
+import FunctionalAPI from './typings.d';
 
 const isCustomConfig = !!process.env.FUNCTIONAL_API_CONFIG;
 const configFilename = process.env.FUNCTIONAL_API_CONFIG || './functional-api.config.ts';

@@ -1,5 +1,5 @@
 import path from 'path';
-import FunctionalAPI from './index.d';
+import FunctionalAPI from './typings.d';
 
 /**
  * resolve functions path
