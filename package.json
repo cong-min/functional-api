@@ -2,8 +2,15 @@
   "name": "functional-api",
   "version": "1.5.0",
   "description": "Functional API server for node.js base on Koa and TypeScript",
+  "author": "Cong Min",
   "license": "MIT",
-  "repository": {},
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/mcc108/functional-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mcc108/functional-api/issues"
+  },
   "main": "src/app.ts",
   "types": "src/typings.d.ts",
   "bin": {
