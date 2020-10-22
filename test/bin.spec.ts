@@ -36,7 +36,6 @@ test.serial('uses config flags and custom config', async t => {
 test.serial('uses error config file', async t => {
   const { stdout, stderr } = await cli(['--config', './error.config.ts'], testPath);
   expect(stderr).to.include('Unable to compile TypeScript');
-  expect(stdout).to.include('Compilation error');
   expect(stdout).to.not.include('127.0.0.1');
 });
 

@@ -21,7 +21,9 @@ app.use(bodyParser({
   enableTypes: ['json', 'form', 'text', 'xml'],
   onerror(err, ctx) {
     console.error(String(err), ctx.body);
-    ctx.throw(400, stripAnsi(err.message));
+    const message = process.env.NODE_ENV === 'production'
+      ? 'body parse error' : stripAnsi(err.message);
+    ctx.throw(400, message);
   },
   ...config['koa-bodyparser'],
 }));
@@ -40,7 +42,9 @@ app.use(async (ctx, next) => {
     ctx.response.body = await func(params, ctx);
   } catch (err) {
     console.error(String(err));
-    ctx.throw(400, stripAnsi(err.message));
+    const message = process.env.NODE_ENV === 'production'
+      ? 'call function error' : stripAnsi(err.message);
+    ctx.throw(400, message);
   }
   await next();
 });
