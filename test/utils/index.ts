@@ -14,7 +14,7 @@ function cli(args, cwd, loaded: ((runner: execa.ExecaChildProcess) => void) | fa
     new Writable({
       write(chunk, encoding, callback) {
         const output = chunk.toString('utf8');
-        if (output.includes('Error') || output.includes('Serving')) {
+        if (output.toLowerCase().includes('error') || output.includes('Serving')) {
           if (loaded) loaded(runner);
           else runner.kill();
         }
