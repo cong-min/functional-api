@@ -33,6 +33,7 @@ let subprocess;
 if (process.env.NODE_ENV !== 'production') { // ts-node-dev
   subprocess = execa('ts-node-dev', [
     `--project=${tsconfig}`,
+    `--dir=${cwd}`,
     app,
   ], {
     env: npmRunPath.env({ cwd }),
@@ -41,6 +42,7 @@ if (process.env.NODE_ENV !== 'production') { // ts-node-dev
 } else { // ts-node
   subprocess = execa('ts-node', [
     `--project=${tsconfig}`,
+    `--dir=${cwd}`,
     app,
   ], {
     env: npmRunPath.env({ cwd }),

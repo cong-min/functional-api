@@ -1,6 +1,6 @@
 {
   "name": "functional-api",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "Functional API server for node.js base on Koa and TypeScript",
   "license": "MIT",
   "repository": {},
@@ -9,6 +9,11 @@
   "bin": {
     "functional-api": "bin/index.js"
   },
+  "files": [
+    "bin",
+    "src",
+    "tsconfig.json"
+  ],
   "scripts": {
     "test": "ava",
     "coverage": "c8 npm test",
