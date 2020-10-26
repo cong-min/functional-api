@@ -1,5 +1,11 @@
 import path from 'path';
+import minimatch from 'minimatch';
 import FunctionalAPI from './typings.d';
+
+const ignorePaths = [
+  '**/node_modules/**',
+  '**/.git/**',
+];
 
 /**
  * resolve functions path
@@ -29,7 +35,7 @@ export function getTargetFunction(
   const [route, target = 'default'] = urlPath.split(':');
 
   const functionPath = resolveFunctions(src, route);
-  if (functionPath === null) {
+  if (functionPath === null || ignorePaths.some(pattern => minimatch(functionPath, pattern))) {
     throw new Error(`function not found: '${route}'`);
   }
 
