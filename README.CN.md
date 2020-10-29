@@ -175,7 +175,7 @@ export interface Res {
   data: { ... }
 }
 
-const main: FA.Function<Req, Res> = (params, ctx): Res => {
+const main: FA.Function<Req, Res> = async (params, ctx): Promise<Res> => {
   console.log(params.id);
   return {
     code: 0,
