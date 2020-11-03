@@ -34,17 +34,22 @@ config.middlewares.forEach((middleware) => {
 
 // call function
 app.use(async (ctx, next) => {
-  const { path, query, body } = ctx.request;
-  const params = Object.prototype.toString.call(body) !== '[object Object]'
-    ? body : { ...query, ...body };
-  try {
-    const func = getTargetFunction(config.src, path);
-    ctx.response.body = await func(params, ctx);
-  } catch (err) {
-    console.error(err);
-    const message = process.env.NODE_ENV === 'production'
-      ? 'call function error' : stripAnsi(err.message || err);
-    ctx.throw(400, message);
+  if (ctx.method === 'OPTIONS') {
+    ctx.status = 200;
+    ctx.response.body = '';
+  } else {
+    const { path, query, body } = ctx.request;
+    const params = Object.prototype.toString.call(body) !== '[object Object]'
+      ? body : { ...query, ...body };
+    try {
+      const func = getTargetFunction(config.src, path);
+      ctx.response.body = await func(params, ctx);
+    } catch (err) {
+      console.error(err);
+      const message = process.env.NODE_ENV === 'production'
+        ? 'call function error' : stripAnsi(err.message || err);
+      ctx.throw(400, message);
+    }
   }
   await next();
 });

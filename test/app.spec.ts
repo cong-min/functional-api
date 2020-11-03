@@ -111,6 +111,16 @@ test('POST request with string body and query string', async t => {
   expect(res.body).to.equal(JSON.stringify(query));
 });
 
+test('OPTIONS request', async t => {
+  const res = await got('functions', {
+    method: 'OPTIONS',
+    prefixUrl: t.context.prefixUrl,
+    throwHttpErrors: false
+  });
+  expect(res.statusCode).to.equal(200);
+  expect(res.body).to.equal('');
+});
+
 test('parse body error', async t => {
   const body = 'test string';
   const res = await got.post('functions/params', {

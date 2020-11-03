@@ -1,6 +1,6 @@
 {
   "name": "functional-api",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "description": "Functional API server for node.js base on Koa and TypeScript",
   "author": "Cong Min",
   "license": "MIT",
