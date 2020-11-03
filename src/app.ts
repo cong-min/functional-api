@@ -20,7 +20,7 @@ app.use(logger(config['koa-logger']));
 app.use(bodyParser({
   enableTypes: ['json', 'form', 'text', 'xml'],
   onerror(err, ctx) {
-    console.error(String(err), ctx.body);
+    console.error(err, ctx.body);
     const message = process.env.NODE_ENV === 'production'
       ? 'body parse error' : stripAnsi(err.message);
     ctx.throw(400, message);
@@ -41,7 +41,7 @@ app.use(async (ctx, next) => {
     const func = getTargetFunction(config.src, path);
     ctx.response.body = await func(params, ctx);
   } catch (err) {
-    console.error(String(err));
+    console.error(err);
     const message = process.env.NODE_ENV === 'production'
       ? 'call function error' : stripAnsi(err.message);
     ctx.throw(400, message);
