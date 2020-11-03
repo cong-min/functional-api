@@ -36,7 +36,7 @@ export function getTargetFunction(
 
   const functionPath = resolveFunctions(src, route);
   if (functionPath === null || ignorePaths.some(pattern => minimatch(functionPath, pattern))) {
-    throw new Error(`function not found: '${route}'`);
+    throw `function not found: '${route}'`;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -50,7 +50,7 @@ export function getTargetFunction(
     }, functionModule);
 
   if (typeof targetFunction !== 'function') {
-    throw new Error(`function '${route}' ${target}() is not defined`);
+    throw `function '${route}' ${target}() is not defined`;
   }
 
   return targetFunction;

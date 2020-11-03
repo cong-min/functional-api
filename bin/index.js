@@ -27,7 +27,7 @@ process.env.FUNCTIONAL_API_SRC = program.src || '';
 process.env.FUNCTIONAL_API_CONFIG = program.config || '';
 process.env.NODE_ENV = program.production ? 'production' : 'development';
 
-console.log(`${process.env.NODE_ENV} environment`);
+console.log(`[${process.env.NODE_ENV} environment]`);
 
 let subprocess;
 if (process.env.NODE_ENV !== 'production') { // ts-node-dev

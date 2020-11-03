@@ -43,7 +43,7 @@ app.use(async (ctx, next) => {
   } catch (err) {
     console.error(err);
     const message = process.env.NODE_ENV === 'production'
-      ? 'call function error' : stripAnsi(err.message);
+      ? 'call function error' : stripAnsi(err.message || err);
     ctx.throw(400, message);
   }
   await next();
