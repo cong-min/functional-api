@@ -20,9 +20,9 @@ app.use(logger(config['koa-logger']));
 app.use(bodyParser({
   enableTypes: ['json', 'form', 'text', 'xml'],
   onerror(err, ctx) {
-    console.error(err, ctx.body);
-    const message = process.env.NODE_ENV === 'production'
-      ? 'body parse error' : stripAnsi(err.message);
+    console.error(err, ctx.request.body);
+    const message = process.env.NODE_ENV !== 'production'
+      ? stripAnsi(err.message) : 'Bad Request';
     ctx.throw(400, message);
   },
   ...config['koa-bodyparser'],
@@ -46,9 +46,9 @@ app.use(async (ctx, next) => {
       ctx.response.body = await func(params, ctx);
     } catch (err) {
       console.error(err);
-      const message = process.env.NODE_ENV === 'production'
-        ? 'call function error' : stripAnsi(err.message || err);
-      ctx.throw(400, message);
+      const message = process.env.NODE_ENV !== 'production'
+        ? stripAnsi(err.message || err) : 'Function Throws Error';
+      ctx.throw(500, message);
     }
   }
   await next();
