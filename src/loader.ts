@@ -1,5 +1,6 @@
 import path from 'path';
 import minimatch from 'minimatch';
+import get from 'lodash/get';
 import FunctionalAPI from './typings.d';
 
 const ignorePaths = [
@@ -42,12 +43,8 @@ export function getTargetFunction(
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   const functionModule = require(functionPath);
 
-  const targetFunction = target
-    .split('.')
-    .reduce((code, targetPart) => {
-      if (typeof code === 'undefined') return code;
-      return code?.[targetPart];
-    }, functionModule);
+  // gets the target function
+  const targetFunction = get(functionModule, target);
 
   if (typeof targetFunction !== 'function') {
     throw `function '${route}' ${target}() is not defined`;
