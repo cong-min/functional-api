@@ -1,6 +1,7 @@
 import path from 'path';
 import minimatch from 'minimatch';
 import get from 'lodash/get';
+import { NotFoundError } from './error';
 import FunctionalAPI from './typings.d';
 
 const ignorePaths = [
@@ -37,7 +38,7 @@ export function getTargetFunction(
 
   const functionPath = resolveFunctions(src, route);
   if (functionPath === null || ignorePaths.some(pattern => minimatch(functionPath, pattern))) {
-    throw `function not found: '${route}'`;
+    throw new NotFoundError(`function not found: '${route}'`);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -47,7 +48,7 @@ export function getTargetFunction(
   const targetFunction = get(functionModule, target);
 
   if (typeof targetFunction !== 'function') {
-    throw `function '${route}' ${target}() is not defined`;
+    throw new NotFoundError(`function '${route}' ${target}() is not defined`);
   }
 
   return targetFunction;
