@@ -1,5 +1,5 @@
 import type Koa from 'koa';
-import type bodyParser from 'koa-bodyparser';
+import type koaBody from 'koa-body';
 import type logger from 'koa-logger';
 
 declare module FunctionalAPI {
@@ -16,7 +16,7 @@ declare module FunctionalAPI {
     context?: (ctx?: Context) => void,
     application?: (app?: App) => void,
     // built-in lib config
-    'koa-bodyparser'?: bodyParser.Options,
+    'koa-body'?: koaBody.IKoaBodyOptions,
     'koa-logger'?: Parameters<typeof logger>[0],
   };
 

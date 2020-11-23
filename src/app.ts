@@ -1,6 +1,6 @@
 import Koa from 'koa';
 import logger from 'koa-logger';
-import bodyParser from 'koa-bodyparser';
+import koaBody from 'koa-body';
 import stripAnsi from 'strip-ansi';
 import { getTargetFunction } from './loader';
 import config from './config';
@@ -17,16 +17,19 @@ app.use(async (ctx, next) => {
 });
 // built-in middlewares
 app.use(logger(config['koa-logger']));
-app.use(bodyParser({
-  enableTypes: ['json', 'form', 'text', 'xml'],
-  onerror(err, ctx) {
+app.use(koaBody({
+  text: true,
+  json: true,
+  urlencoded: true,
+  multipart: true,
+  onError(err, ctx) {
     console.error(err, ctx.request.body);
     const code = 400;
     const message = process.env.NODE_ENV !== 'production'
       ? stripAnsi(err.message) : 'Bad Request';
     ctx.throw(code, message);
   },
-  ...config['koa-bodyparser'],
+  ...config['koa-body'],
 }));
 // custom middlewares
 config.middlewares.forEach((middleware) => {
@@ -39,9 +42,15 @@ app.use(async (ctx, next) => {
     ctx.status = 200;
     ctx.response.body = '';
   } else {
-    const { path, query, body } = ctx.request;
-    const params = Object.prototype.toString.call(body) !== '[object Object]'
-      ? body : { ...query, ...body };
+    const { path, query, body, files } = ctx.request;
+    let params;
+    if (ctx.is('multipart')) { // multipart/form-data
+      params = { ...query, ...body, ...files };
+    } else if (Object.prototype.toString.call(body) === '[object Object]') { // object
+      params = { ...query, ...body };
+    } else {
+      params = body;
+    }
     try {
       const func = getTargetFunction(config.src, path);
       ctx.response.body = await func(params, ctx);

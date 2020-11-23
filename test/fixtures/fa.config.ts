@@ -9,7 +9,7 @@ const config = {
   context(ctx) { ctx.injected = 'context injected'; },
   application(app) { app.injected = 'application injected'; },
   /* configure the built-in middleware */
-  'koa-bodyparser': {}, // refer to koa-bodyparser documentation (here all `enableTypes` are turned on by default)
+  'koa-body': {}, // refer to koa-body documentation (default enabled text, json, urlencoded, multipart)
   'koa-logger': {}, // refer to koa-logger documentation
 };
 

@@ -71,7 +71,7 @@ const config: FA.Config = {
   context(ctx) {}, // context, can be injected
   application(app) {}, // application, can be injected
   /* configure the built-in middleware */
-  'koa-bodyparser': {}, // refer to koa-bodyparser documentation (here all `enableTypes` are turned on by default)
+  'koa-body': {}, // refer to koa-body documentation (default enabled text, json, urlencoded, multipart)
   'koa-logger': {}, // refer to koa-logger documentation
 };
 
@@ -156,7 +156,7 @@ It is recommended to practice TypeScript in functions. Before, you need to confi
 ```json
 {
   "extends": "functional-api/tsconfig",
-  "include": ["**/*"],
+  "include": ["**/*", "*.*"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }
 ```

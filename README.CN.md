@@ -72,7 +72,7 @@ const config: FA.Config = {
   context(ctx) {}, // 操作 context 上下文, 可进行注入
   application(app) {}, // 操作 application 应用, 可进行注入
   /* 对内建中间件进行配置 */
-  'koa-bodyparser': {}, // 参考 koa-bodyparser 文档 (此处默认开启了所有的 enableTypes)
+  'koa-body': {}, // 参考 koa-body 文档 (此处默认开启了 text, json, urlencoded, multipart)
   'koa-logger': {}, // 参考 koa-logger 文档
 };
 
@@ -158,7 +158,7 @@ exports.default = (params, ctx) => {
 ```json
 {
   "extends": "functional-api/tsconfig",
-  "include": ["**/*"],
+  "include": ["**/*", "*.*"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }
 ```

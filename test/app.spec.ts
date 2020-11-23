@@ -2,9 +2,11 @@ import anyTest, { TestInterface } from 'ava';
 import execa from 'execa';
 import { expect } from 'chai';
 import path from 'path';
+import fs from 'fs';
 import getPort from 'get-port';
 import got from 'got';
 import qs from 'qs';
+import FormData from 'form-data';
 import { cli } from './utils';
 
 // Typing t.context
@@ -97,6 +99,31 @@ test('POST request with string body', async t => {
   });
   expect(res.statusCode).to.equal(200);
   expect(res.body).to.equal(JSON.stringify(body));
+});
+
+test('POST request with form body', async t => {
+  const body = { b: 'B1', c: false };
+  const res = await got.post('functions/form?a=A1', {
+    form: body,
+    headers: { 'content-type': 'application/x-www-form-urlencoded' },
+    prefixUrl: t.context.prefixUrl,
+    throwHttpErrors: false
+  });
+  expect(res.statusCode).to.equal(200);
+  expect(res.body).to.equal(JSON.stringify({ a: 'string', b: 'string', c: 'string' }));
+});
+
+test('POST request with multipart/form-data body', async t => {
+  const body = new FormData();
+  body.append('b', 'B1');
+  body.append('c', fs.createReadStream(path.join(testPath, './functions/form.ts')), 'form.ts');
+  const res = await got.post('functions/form?a=A1', {
+    body,
+    prefixUrl: t.context.prefixUrl,
+    throwHttpErrors: false
+  });
+  expect(res.statusCode).to.equal(200);
+  expect(res.body).to.equal(JSON.stringify({ a: 'string', b: 'string', c: 'file' }));
 });
 
 test('POST request with string body and query string', async t => {
