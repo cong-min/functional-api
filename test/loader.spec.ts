@@ -61,7 +61,7 @@ test('function not found', async t => {
     prefixUrl: t.context.prefixUrl,
     throwHttpErrors: false
   });
-  expect(res.statusCode).to.equal(400);
+  expect(res.statusCode).to.equal(404);
   expect(res.body).to.equal(`function not found: '/'`);
 });
 
@@ -70,28 +70,28 @@ test('function target is not defined', async t => {
     prefixUrl: t.context.prefixUrl,
     throwHttpErrors: false
   });
-  expect(res.statusCode).to.equal(400);
+  expect(res.statusCode).to.equal(404);
   expect(res.body).to.equal(`function '/functions/empty' default() is not defined`);
 
   res = await got('./functions/empty:main', {
     prefixUrl: t.context.prefixUrl,
     throwHttpErrors: false
   });
-  expect(res.statusCode).to.equal(400);
+  expect(res.statusCode).to.equal(404);
   expect(res.body).to.equal(`function '/functions/empty' main() is not defined`);
 
   res = await got('./functions/multi:str', {
     prefixUrl: t.context.prefixUrl,
     throwHttpErrors: false
   });
-  expect(res.statusCode).to.equal(400);
+  expect(res.statusCode).to.equal(404);
   expect(res.body).to.equal(`function '/functions/multi' str() is not defined`);
 
   res = await got('functions/multi:.main..func', {
     prefixUrl: t.context.prefixUrl,
     throwHttpErrors: false
   });
-  expect(res.statusCode).to.equal(400);
+  expect(res.statusCode).to.equal(404);
   expect(res.body).to.equal(`function '/functions/multi' .main..func() is not defined`);
 });
 
@@ -100,6 +100,6 @@ test('invalid route', async t => {
     prefixUrl: t.context.prefixUrl,
     throwHttpErrors: false
   });
-  expect(res.statusCode).to.equal(400);
+  expect(res.statusCode).to.equal(404);
   expect(res.body).to.equal(`function not found: '/xx@oo'`);
 });
